@@ -1,4 +1,3 @@
-const { throws } = require('assert');
 const {readFileSync} = require('fs');
 
 function fileReader(filename) {
@@ -12,7 +11,7 @@ class Folder {
 		this.name = name;
 		this.children = [];
 		this.files = []; 
-		this.parent = parent;
+		this.parent = parent == undefined ? this : parent;
 	}
 	getFilesSize() {
 		return this.files.reduce((prevVal, curVal) => prevVal + parseInt(curVal.size), 0);
@@ -20,15 +19,14 @@ class Folder {
 	getFolderSize() {
 		let res = 0;
 		for (let child of this.children) {
-			if (child.children.length <= 0) {
-				res += child.getFilesSize();
-			} else {
 				res += child.getFolderSize();
-			}
 		}
 		res += this.getFilesSize();
 		return res;
 	}
+	// 2nd variant getFolderSize() {
+	// 	return this.children.map(child => child.getFolderSize()).reduce((prevVal, curVal) => prevVal + curVal, 0) + this.getFilesSize();
+	// }
 }
 
 class File {
