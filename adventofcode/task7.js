@@ -91,3 +91,5 @@ function task2(current) {
 }
 task2(root);
 console.log(task2Arr.reduce((prevVal, curVal) => prevVal.getFolderSize() <= curVal.getFolderSize() ? prevVal : curVal).getFolderSize());
+
+console.table(root);
